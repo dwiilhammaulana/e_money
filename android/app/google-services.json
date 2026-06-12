@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "814513452881",
+    "project_id": "e-money-de6c3",
+    "storage_bucket": "e-money-de6c3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814513452881:android:f5d5b135efd3d837c74570",
+        "android_client_info": {
+          "package_name": "com.example.dompet_kampus_global"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa2yXRn-zgkmF-d-KQs25I4wG4Qx0tSis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
