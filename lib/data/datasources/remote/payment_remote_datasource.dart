@@ -7,6 +7,8 @@ abstract class PaymentRemoteDatasource {
   Future<TransferResultEntity> transfer({
     required double amount,
     required String description,
+    required String recipientId,
+    required String channel,
     required String otpCode,
     required String otpType,
   });
@@ -30,12 +32,16 @@ class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource {
   Future<TransferResultEntity> transfer({
     required double amount,
     required String description,
+    required String recipientId,
+    required String channel,
     required String otpCode,
     required String otpType,
   }) async {
     final response = await _client.post(ApiEndpoints.transfer, data: {
       'amount': amount,
       'description': description,
+      'recipient_id': recipientId,
+      'channel': channel,
       'otp_code': otpCode,
       'otp_type': otpType,
     });

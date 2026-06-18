@@ -33,10 +33,12 @@ class _PinPageState extends State<PinPage> {
     final kind = flow['kind'] as String? ?? '';
 
     if (kind == 'transfer') {
-      // Use OTP from 2FA — for demo we use a hardcoded type
+      final recipient = flow['recipient'] as Map<String, dynamic>;
       context.read<PaymentBloc>().add(PaymentTransferRequested(
         amount: (flow['amount'] as num).toDouble(),
         description: flow['note'] as String? ?? 'Transfer',
+        recipientId: recipient['id'] as String? ?? '',
+        channel: flow['channel'] as String? ?? 'dkg',
         otpCode: '000000', // In production: get from actual 2FA
         otpType: AppConstants.otpTypeTotp,
       ));
@@ -49,6 +51,8 @@ class _PinPageState extends State<PinPage> {
       context.read<PaymentBloc>().add(PaymentTransferRequested(
         amount: (flow['amount'] as num).toDouble(),
         description: flow['description'] as String? ?? 'Pembayaran QRIS',
+        recipientId: flow['merchant_id'] as String? ?? 'merchant_001',
+        channel: 'qris',
         otpCode: '000000',
         otpType: AppConstants.otpTypeTotp,
       ));

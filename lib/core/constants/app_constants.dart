@@ -3,7 +3,8 @@ class AppConstants {
   static const String appVersion = '1.0.0';
 
   // API
-  static const String baseUrl = 'http://10.158.127.27:8080'; // Android emulator → localhost
+  static const String baseUrl =
+      'http://192.168.100.6:8080'; // Laptop Wi-Fi IP for physical device testing
   static const String apiVersion = '/v1';
   static const int connectTimeout = 30;
   static const int receiveTimeout = 30;

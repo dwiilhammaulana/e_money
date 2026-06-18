@@ -26,6 +26,9 @@ class _RegisterPageState extends State<RegisterPage> {
   bool get _valid => _name.length > 1 && _email.contains('@') && _pw.length >= 6 && _agree;
 
   Future<void> _register() async {
+    if (_loading) return;
+
+    var firebaseAccountCreated = false;
     setState(() => _loading = true);
     try {
       // 1. Buat akun di Firebase
@@ -33,6 +36,7 @@ class _RegisterPageState extends State<RegisterPage> {
         email: _email,
         password: _pw,
       );
+      firebaseAccountCreated = true;
       await credential.user?.updateDisplayName(_name);
 
       // 2. Ambil Firebase ID Token lalu kirim ke backend
@@ -51,14 +55,22 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     } on ServerFailure catch (e) {
       if (mounted) {
+        final message = firebaseAccountCreated
+            ? '${e.message}\n\nAkun Firebase sudah dibuat. Cek inbox email itu termasuk folder spam, apakah email OTP 6 digit benar terkirim. Cek juga terminal BE, apakah ada log error terkait SMTP saat proses ini terjadi.'
+            : e.message;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.message), backgroundColor: AppColors.red),
+          SnackBar(content: Text(message), backgroundColor: AppColors.red),
         );
       }
     } on NetworkFailure catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Tidak ada koneksi internet.'), backgroundColor: AppColors.red),
+          const SnackBar(
+            content: Text(
+              'Akun Firebase sudah dibuat, tapi aplikasi belum menerima respons dari backend. Cek inbox email itu termasuk folder spam, apakah email OTP 6 digit benar terkirim. Cek juga terminal BE, apakah ada log error terkait SMTP saat proses ini terjadi.',
+            ),
+            backgroundColor: AppColors.red,
+          ),
         );
       }
     } catch (e) {
