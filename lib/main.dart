@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/router/app_router.dart';
+import 'core/services/deeplink_service.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/app_bloc_observer.dart';
 import 'injection/injection_container.dart' as di;
@@ -19,6 +20,9 @@ void main() async {
 
   // Initialize dependency injection
   await di.init();
+
+  // Listen for payment links after dependencies and the router are ready.
+  await DeeplinkService(AppRouter.router).init();
 
   // Set preferred orientations
   await SystemChrome.setPreferredOrientations([
@@ -42,7 +46,8 @@ class DompetKampusApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => di.sl<AuthBloc>()..add(AuthCheckRequested())),
+        BlocProvider(
+            create: (_) => di.sl<AuthBloc>()..add(AuthCheckRequested())),
         BlocProvider(create: (_) => di.sl<AccountBloc>()),
       ],
       child: MaterialApp.router(
