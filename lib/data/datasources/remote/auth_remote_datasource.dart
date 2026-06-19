@@ -3,11 +3,14 @@ import '../../../core/network/api_client.dart';
 import '../../models/user_model.dart';
 
 abstract class AuthRemoteDatasource {
-  Future<({UserModel user, String token})> verifyFirebaseToken(String firebaseToken);
-  Future<({UserModel user, String token})> registerWithOtp(String firebaseToken);
+  Future<({UserModel user, String token})> verifyFirebaseToken(
+      String firebaseToken);
+  Future<({UserModel user, String token})> registerWithOtp(
+      String firebaseToken);
   Future<void> verifyEmailOtp(String code);
   Future<UserModel> getMe();
   Future<void> updateFcmToken(String fcmToken);
+  void setAuthToken(String token);
   void clearAuthToken();
 }
 
@@ -16,7 +19,8 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   AuthRemoteDatasourceImpl(this._client);
 
   @override
-  Future<({UserModel user, String token})> verifyFirebaseToken(String firebaseToken) async {
+  Future<({UserModel user, String token})> verifyFirebaseToken(
+      String firebaseToken) async {
     final response = await _client.post(
       ApiEndpoints.verifyToken,
       data: {'firebase_token': firebaseToken},
@@ -29,7 +33,8 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Future<({UserModel user, String token})> registerWithOtp(String firebaseToken) async {
+  Future<({UserModel user, String token})> registerWithOtp(
+      String firebaseToken) async {
     final response = await _client.post(
       ApiEndpoints.register,
       data: {'firebase_token': firebaseToken},
@@ -55,6 +60,11 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<void> updateFcmToken(String fcmToken) async {
     await _client.put(ApiEndpoints.fcmToken, data: {'fcm_token': fcmToken});
+  }
+
+  @override
+  void setAuthToken(String token) {
+    _client.setAuthToken(token);
   }
 
   @override
