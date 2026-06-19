@@ -13,7 +13,8 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._remote, this._local);
 
   @override
-  Future<({UserEntity user, String token})> verifyFirebaseToken(String firebaseToken) async {
+  Future<({UserEntity user, String token})> verifyFirebaseToken(
+      String firebaseToken) async {
     try {
       final result = await _remote.verifyFirebaseToken(firebaseToken);
       await _local.saveToken(result.token);
@@ -30,7 +31,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<({UserEntity user, String token})> registerWithOtp(String firebaseToken) async {
+  Future<({UserEntity user, String token})> registerWithOtp(
+      String firebaseToken) async {
     try {
       final result = await _remote.registerWithOtp(firebaseToken);
       await _local.saveToken(result.token);
@@ -84,13 +86,22 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> setAuthVerified(bool verified) => _local.saveAuthVerified(verified);
+  Future<void> setAuthVerified(bool verified) =>
+      _local.saveAuthVerified(verified);
 
   @override
   Future<bool> isAuthVerified() => _local.getAuthVerified();
 
   @override
   Future<String?> getSavedToken() => _local.getToken();
+
+  @override
+  Future<void> restoreApiToken() async {
+    final token = await _local.getToken();
+    if (token != null) {
+      _remote.setAuthToken(token);
+    }
+  }
 
   @override
   Future<UserEntity?> getSavedUser() async {
