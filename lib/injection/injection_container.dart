@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import '../core/constants/app_constants.dart';
 import '../core/network/api_client.dart';
 import '../data/datasources/local/secure_storage_datasource.dart';
 import '../data/datasources/remote/account_remote_datasource.dart';
@@ -35,8 +36,14 @@ Future<void> init() async {
     aOptions: AndroidOptions(encryptedSharedPreferences: true),
   );
 
+  final savedToken = await secureStorage.read(
+    key: AppConstants.kJwtToken,
+  );
+
   // Core
-  sl.registerLazySingleton<ApiClient>(() => ApiClient());
+  sl.registerLazySingleton<ApiClient>(
+    () => ApiClient(token: savedToken),
+  );
 
   // Local datasource
   sl.registerLazySingleton<SecureStorageDatasource>(
