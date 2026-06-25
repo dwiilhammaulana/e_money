@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
       final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
       debugPrint('[Auth] Firebase sign-in OK → uid=${userCredential.user?.uid}');
 
-      final idToken = await userCredential.user?.getIdToken();
+      final idToken = await userCredential.user?.getIdToken(true);
       debugPrint(
           '[Auth] Firebase ID token: ${idToken != null ? "OK (${idToken.length} chars)" : "NULL"}');
 
@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
         email: _email,
         password: _pw,
       );
-      final idToken = await userCredential.user?.getIdToken();
+      final idToken = await userCredential.user?.getIdToken(true);
       if (idToken != null && mounted) {
         context.read<AuthBloc>().add(AuthLoginWithFirebase(idToken));
       }

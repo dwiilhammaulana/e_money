@@ -4,7 +4,7 @@ class AppConstants {
 
   // API
   static const String baseUrl =
-      'http://192.168.100.6:8080'; // Laptop Wi-Fi IP for physical device testing
+      'http://127.0.0.1:8080'; // Android device via adb reverse to local backend
   static const String apiVersion = '/v1';
   static const int connectTimeout = 30;
   static const int receiveTimeout = 30;
