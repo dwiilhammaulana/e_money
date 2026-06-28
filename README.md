@@ -174,5 +174,5 @@ flutter build apk --release
 ## Dokumentasi Pengumpulan
 
 - Screenshot aplikasi: tambahkan pada bagian ini sebelum dikumpulkan.
-- Link video presentasi: isi dengan link YouTube atau Google Drive.
+- Link video presentasi: https://youtu.be/D5u48pCRPgg
 - APK: lampirkan file hasil build dari folder `build/app/outputs/flutter-apk/`.
