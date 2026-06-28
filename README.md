@@ -1,5 +1,9 @@
 # Dompet Jajan
 
+Dompet Jajan adalah aplikasi e-money berbasis Flutter untuk kebutuhan UAS Aplikasi Mobile Lanjutan. Aplikasi ini menangani autentikasi, saldo, top up, transfer, pembayaran, 2FA, FCM, dan pembayaran dari aplikasi E-Commerce melalui deep link.
+
+## Identitas
+
 | Info | Detail |
 | --- | --- |
 | Nama | Dwi Ilham Maulana |
@@ -8,33 +12,30 @@
 | Mata Kuliah | KB1154 - Aplikasi Mobile Lanjutan |
 | Tugas | UAS - Integrasi E-Commerce dengan E-Money menggunakan Deep Link |
 
-## Link Repo Terkait
+## Repository Terkait
 
-- BE e commerce: [dwiilhammaulana/MBL5_BackendGolang](https://github.com/dwiilhammaulana/MBL5_BackendGolang)
-- E commerce: [dwiilhammaulana/MBL6_pasar_malam](https://github.com/dwiilhammaulana/MBL6_pasar_malam)
-- BE e money: [dwiilhammaulana/be_e_money](https://github.com/dwiilhammaulana/be_e_money)
-- e money: [dwiilhammaulana/e_money](https://github.com/dwiilhammaulana/e_money)
-
-## Deskripsi
-
-Dompet Jajan adalah aplikasi e-money berbasis Flutter yang digunakan untuk login, melihat saldo, top up, transfer, dan memproses pembayaran dari aplikasi merchant melalui deep link.
-
-Aplikasi ini menerima payment request dari E-Commerce menggunakan skema `dompetkampus://pay`, menampilkan detail transaksi, meminta PIN dan 2FA, lalu memproses pembayaran melalui backend e-money.
+| Bagian | Repository |
+| --- | --- |
+| Backend E-Commerce | [dwiilhammaulana/MBL5_BackendGolang](https://github.com/dwiilhammaulana/MBL5_BackendGolang) |
+| Aplikasi E-Commerce | [dwiilhammaulana/MBL6_pasar_malam](https://github.com/dwiilhammaulana/MBL6_pasar_malam) |
+| Backend E-Money | [dwiilhammaulana/be_e_money](https://github.com/dwiilhammaulana/be_e_money) |
+| Aplikasi E-Money | [dwiilhammaulana/e_money](https://github.com/dwiilhammaulana/e_money) |
 
 ## Fitur Utama
 
 - Register dan login menggunakan Firebase Authentication.
 - Integrasi backend Golang untuk akun, saldo, transaksi, pembayaran, dan 2FA.
 - Dashboard saldo pengguna.
-- Top up, transfer, dan pembayaran.
-- Deep link pembayaran dari aplikasi merchant.
-- Verifikasi PIN dan 2FA sebelum transaksi.
-- Dukungan metode 2FA seperti email OTP, TOTP, dan notifikasi Firebase sesuai konfigurasi akun.
-- Tema aplikasi bernuansa ungu seperti e-wallet.
+- Top up, transfer, dan riwayat transaksi.
+- Pembayaran merchant dari deep link `dompetkampus://pay`.
+- Verifikasi PIN sebelum transaksi.
+- Pilihan 2FA menggunakan email OTP SMTP, TOTP, atau notifikasi Firebase.
+- Dukungan FCM untuk metode 2FA berbasis notifikasi.
+- Callback pembayaran ke aplikasi merchant setelah transaksi diproses.
 
-## Arsitektur Singkat
+## Arsitektur Aplikasi
 
-Struktur kode menggunakan pendekatan layered architecture.
+Aplikasi menggunakan pendekatan layered architecture agar UI, business logic, dan data source tidak tercampur.
 
 ```text
 lib/
@@ -42,10 +43,12 @@ lib/
 |-- firebase_options.dart
 |-- core/
 |   |-- constants/
+|   |-- error/
 |   |-- network/
 |   |-- router/
 |   |-- services/
-|   `-- theme/
+|   |-- theme/
+|   `-- utils/
 |-- data/
 |   |-- datasources/
 |   |-- models/
@@ -61,34 +64,35 @@ lib/
     `-- widgets/
 ```
 
-| Bagian | Fungsi |
+| Folder | Fungsi |
 | --- | --- |
-| `core` | Konfigurasi global, router, API client, theme, dan deep link service. |
-| `data` | Implementasi datasource, model response, dan repository. |
-| `domain` | Kontrak repository, entity, dan use case. |
-| `injection` | Dependency injection menggunakan `get_it`. |
-| `presentation` | UI, halaman, widget, dan state management `flutter_bloc`. |
+| `core` | Konfigurasi global, router, API client, service deep link, theme, error, dan utility. |
+| `data` | Datasource local/remote, model response, dan implementasi repository. |
+| `domain` | Entity, kontrak repository, dan use case. |
+| `injection` | Registrasi dependency injection menggunakan `get_it`. |
+| `presentation` | Halaman UI, widget, dan state management menggunakan `flutter_bloc`. |
 
 ## Konfigurasi Backend
 
-Backend E-Money berjalan pada port `8080`.
+Backend E-Money dijalankan dari folder `../be-emoney` dan menggunakan port `8080`.
 
-```text
-Base URL Flutter: http://127.0.0.1:8080
-Folder backend: ../be-emoney
-```
+| Kebutuhan | Nilai |
+| --- | --- |
+| Backend folder | `D:\kulyah\smt 6\mobile app lanjutan\12\inside dosen\be-emoney` |
+| Health check | `http://127.0.0.1:8080/v1/health` |
+| Base URL di kode saat ini | `http://192.168.100.6:8080` |
+| Service pendukung | MySQL/XAMPP, Redis, Firebase, dan SMTP |
 
-Jika menjalankan aplikasi di HP Android fisik lewat USB, aktifkan reverse port:
+Catatan koneksi:
 
-```powershell
-adb reverse tcp:8080 tcp:8080
-```
-
-Backend membutuhkan service pendukung sesuai panduan, seperti MySQL/XAMPP dan Redis di Docker.
+- Jika memakai Android emulator, base URL biasanya memakai `http://10.0.2.2:8080`.
+- Jika memakai HP Android fisik dan `adb reverse`, base URL dapat memakai `http://127.0.0.1:8080`.
+- Jika memakai IP LAN, pastikan HP dan laptop berada pada jaringan yang sama, lalu sesuaikan `baseUrl` di `lib/core/constants/app_constants.dart`.
 
 ## Cara Menjalankan
 
-1. Jalankan Redis dan database sesuai konfigurasi backend.
+1. Jalankan MySQL/XAMPP dan Redis.
+
 2. Jalankan backend E-Money.
 
 ```powershell
@@ -96,16 +100,21 @@ cd "D:\kulyah\smt 6\mobile app lanjutan\12\inside dosen\be-emoney"
 go run .
 ```
 
-3. Jalankan aplikasi Flutter.
+3. Jika memakai HP Android fisik melalui USB, aktifkan reverse port.
+
+```powershell
+adb reverse tcp:8080 tcp:8080
+```
+
+4. Jalankan aplikasi Flutter.
 
 ```powershell
 cd "D:\kulyah\smt 6\mobile app lanjutan\12\inside dosen\dompet_kampus_global"
 flutter pub get
-adb reverse tcp:8080 tcp:8080
 flutter run
 ```
 
-4. Pastikan endpoint health dapat diakses dari device.
+5. Pastikan backend dapat diakses.
 
 ```text
 http://127.0.0.1:8080/v1/health
@@ -113,33 +122,57 @@ http://127.0.0.1:8080/v1/health
 
 ## Deep Link Payment
 
-### Deep link masuk dari E-Commerce
+Aplikasi menerima request pembayaran dari E-Commerce melalui skema berikut:
+
+```text
+dompetkampus://pay
+```
+
+Contoh deep link:
 
 ```text
 dompetkampus://pay?merchant_id=MCH_E_COMMERCE&merchant_name=e_commerce&amount=75000&description=Order%20%231&reference=INV-1&callback=pasarmalam%3A%2F%2Fpayment-callback
 ```
 
-Parameter yang dibaca aplikasi:
+Parameter yang digunakan:
 
 | Parameter | Fungsi |
 | --- | --- |
 | `merchant_id` | ID merchant pengirim transaksi. |
-| `merchant_name` | Nama merchant yang ditampilkan ke user. |
+| `merchant_name` | Nama merchant yang ditampilkan ke pengguna. |
 | `amount` | Nominal pembayaran. |
 | `description` | Deskripsi transaksi. |
 | `reference` | Nomor referensi order dari merchant. |
-| `callback` | Deep link tujuan untuk mengirim hasil pembayaran kembali ke merchant. |
+| `callback` | Deep link tujuan untuk mengirim status pembayaran kembali ke merchant. |
 
-### Intent filter Android
-
-Aplikasi dikonfigurasi untuk menerima:
+Intent filter Android mendukung:
 
 ```text
 dompetkampus://pay
 https://dompetkampus.app/pay
 ```
 
+Callback merchant yang digunakan:
+
+```text
+pasarmalam://payment-callback
+```
+
 ## Test Manual
+
+### Test aplikasi E-Money
+
+- Register akun baru.
+- Verifikasi email atau OTP setelah register.
+- Login menggunakan akun yang valid.
+- Pilih dan aktifkan metode 2FA.
+- Cek dashboard saldo.
+- Jalankan top up.
+- Jalankan transfer.
+- Cek riwayat transaksi.
+- Pastikan token FCM tercatat untuk 2FA notifikasi.
+
+### Test deep link pembayaran
 
 1. Login ke Dompet Jajan.
 2. Pastikan saldo akun mencukupi.
@@ -150,9 +183,12 @@ adb shell "am start -a android.intent.action.VIEW -d 'dompetkampus://pay?merchan
 ```
 
 4. Pastikan halaman payment request terbuka.
-5. Masukkan PIN.
-6. Selesaikan 2FA sesuai metode akun.
-7. Pastikan transaksi berhasil dan saldo berkurang.
+5. Periksa nama merchant, nominal, deskripsi, dan reference.
+6. Masukkan PIN.
+7. Selesaikan 2FA sesuai metode akun.
+8. Pastikan pembayaran berhasil.
+9. Pastikan saldo berkurang.
+10. Pastikan callback kembali ke aplikasi E-Commerce.
 
 ## Dependensi Utama
 
@@ -162,25 +198,78 @@ adb shell "am start -a android.intent.action.VIEW -d 'dompetkampus://pay?merchan
 | `get_it` | Dependency injection. |
 | `go_router` | Routing aplikasi. |
 | `dio` | HTTP client ke backend. |
-| `firebase_core`, `firebase_auth`, `firebase_messaging` | Firebase auth dan notifikasi. |
-| `google_sign_in` | Login Google. |
+| `firebase_core` | Inisialisasi Firebase. |
+| `firebase_auth` | Autentikasi Firebase. |
+| `firebase_messaging` | FCM dan notifikasi. |
+| `google_sign_in` | Login menggunakan Google. |
 | `flutter_secure_storage` | Penyimpanan token dan session. |
+| `shared_preferences` | Penyimpanan preferensi sederhana. |
 | `app_links` | Deep link payment. |
+| `mobile_scanner` | Fitur scan QR. |
+| `intl` | Format tanggal dan mata uang. |
 
 ## Build APK
+
+Debug APK:
 
 ```powershell
 flutter build apk --debug
 ```
 
-atau untuk release:
+Release APK:
 
 ```powershell
 flutter build apk --release
 ```
 
+Hasil build berada di:
+
+```text
+build/app/outputs/flutter-apk/
+```
+
 ## Dokumentasi Pengumpulan
 
-- Screenshot aplikasi: tambahkan pada bagian ini sebelum dikumpulkan.
-- Link video presentasi: https://youtu.be/D5u48pCRPgg
-- APK: lampirkan file hasil build dari folder `build/app/outputs/flutter-apk/`.
+- Video presentasi: [https://youtu.be/D5u48pCRPgg](https://youtu.be/D5u48pCRPgg)
+- APK: lampirkan file dari folder `build/app/outputs/flutter-apk/`.
+- Screenshot aplikasi: lihat bagian di bawah.
+
+## Screenshot
+
+### Aplikasi E-Money
+
+![Splash atau halaman awal](image.png)
+![Dokumentasi WhatsApp](<WhatsApp Image 2026-06-28 at 14.12.58.jpeg>)
+![E-Money 1](image-1.png)
+![E-Money 2](image-2.png)
+![E-Money 3](image-3.png)
+![E-Money 4](image-4.png)
+![E-Money 5](image-5.png)
+![E-Money 6](image-6.png)
+![E-Money 7](image-7.png)
+![E-Money 8](image-8.png)
+
+### Integrasi E-Commerce
+
+![E-Commerce 1](image-9.png)
+![E-Commerce 2](image-10.png)
+![E-Commerce 3](image-11.png)
+![E-Commerce 4](image-13.png)
+![E-Commerce 5](image-12.png)
+![E-Commerce 6](image-14.png)
+![E-Commerce 7](image-15.png)
+
+## Checklist UAS
+
+| Kriteria | Status |
+| --- | --- |
+| Aplikasi E-Money tersedia | Selesai |
+| Backend E-Money tersedia | Selesai |
+| Integrasi deep link dari E-Commerce ke E-Money | Selesai |
+| Callback pembayaran dari E-Money ke E-Commerce | Selesai |
+| Autentikasi Firebase | Selesai |
+| 2FA | Selesai |
+| FCM | Selesai |
+| APK dapat dibuild | Selesai |
+| README berisi cara menjalankan dan test manual | Selesai |
+| Screenshot dan video presentasi | Selesai |
