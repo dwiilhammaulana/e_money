@@ -230,7 +230,6 @@ build/app/outputs/flutter-apk/
 
 ## Dokumentasi Pengumpulan
 
-- Video presentasi: [https://youtu.be/D5u48pCRPgg](https://youtu.be/D5u48pCRPgg)
 - APK: lampirkan file dari folder `build/app/outputs/flutter-apk/`.
 - Screenshot aplikasi: lihat bagian di bawah.
 
@@ -252,6 +251,12 @@ build/app/outputs/flutter-apk/
 | <img src="image-9.png" alt="E-Commerce 1" width="220"> | <img src="image-10.png" alt="E-Commerce 2" width="220"> | <img src="image-11.png" alt="E-Commerce 3" width="220"> |
 | <img src="image-13.png" alt="E-Commerce 4" width="220"> | <img src="image-12.png" alt="E-Commerce 5" width="220"> | <img src="image-14.png" alt="E-Commerce 6" width="220"> |
 | <img src="image-15.png" alt="E-Commerce 7" width="220"> | | |
+
+## Video Presentasi
+
+<img src="ChatGPT%20Image%20Jun%2028%2C%202026%2C%2011_47_43%20AM.png" alt="Thumbnail video presentasi Dompet Jajan" width="360">
+
+[Tonton video presentasi](https://youtu.be/D5u48pCRPgg)
 
 ## Checklist UAS
 
