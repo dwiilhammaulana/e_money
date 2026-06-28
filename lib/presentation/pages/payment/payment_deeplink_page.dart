@@ -287,7 +287,7 @@ class _PaymentMethodSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Dompet Kampus Global',
+                  'Dompet Jajan',
                   style: TextStyle(
                     fontFamily: 'PlusJakartaSans',
                     fontSize: 14.5,

@@ -1,5 +1,5 @@
 name: dompet_kampus_global
-description: "Aplikasi e-money Dompet Kampus Global — bayar, transfer, dan kelola uang kuliah."
+description: "Aplikasi e-money Dompet Jajan — bayar, transfer, dan kelola uang kuliah."
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -45,6 +45,7 @@ dependencies:
   # Icons
   cupertino_icons: ^1.0.8
   app_links: ^7.0.0
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:

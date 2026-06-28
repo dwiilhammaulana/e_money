@@ -51,7 +51,7 @@ class DompetKampusApp extends StatelessWidget {
         BlocProvider(create: (_) => di.sl<AccountBloc>()),
       ],
       child: MaterialApp.router(
-        title: 'Dompet Kampus Global',
+        title: 'Dompet Jajan',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         routerConfig: AppRouter.router,

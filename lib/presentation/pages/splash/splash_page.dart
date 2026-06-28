@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../widgets/app_button.dart';
-import '../../widgets/app_logo.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -67,28 +66,13 @@ class _SplashPageState extends State<SplashPage> {
                   child: Column(
                     children: [
                       const Spacer(),
-                      const AppLogo(size: 92, light: true),
-                      const SizedBox(height: 26),
-                      const Text(
-                        'Dompet Kampus',
-                        style: TextStyle(
-                          fontFamily: 'PlusJakartaSans',
-                          fontSize: 30,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                          letterSpacing: -0.5,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      const Text(
-                        'GLOBAL',
-                        style: TextStyle(
-                          fontFamily: 'PlusJakartaSans',
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          letterSpacing: 3,
-                        ),
+                      Image.asset(
+                        'assets/images/logo_awal.png',
+                        width: 116,
+                        height: 116,
+                        fit: BoxFit.contain,
+                        color: Colors.white,
+                        colorBlendMode: BlendMode.srcIn,
                       ),
                       const SizedBox(height: 16),
                       const Text(

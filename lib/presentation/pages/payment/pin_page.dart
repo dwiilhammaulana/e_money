@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_colors.dart';
@@ -208,12 +209,21 @@ class _PinPageState extends State<PinPage> {
     }
   }
 
-  void _handlePaymentState(PaymentState state) {
+  Future<void> _handlePaymentState(PaymentState state) async {
     if (state is PaymentTransferSuccess) {
       final result = state.result;
       final isPayment =
           _kind == AppConstants.txnPayment || _kind == AppConstants.txnDeeplink;
       final reference = widget.flowData['reference'] as String?;
+      if (_kind == AppConstants.txnDeeplink) {
+        final returned = await _returnToMerchant(
+          status: 'success',
+          reference: reference,
+          transactionId: result.transactionId,
+        );
+        if (returned || !mounted) return;
+      }
+
       context.go('/success', extra: {
         'title': isPayment ? 'Pembayaran berhasil' : 'Transfer berhasil',
         'subtitle': result.description,
@@ -254,6 +264,34 @@ class _PinPageState extends State<PinPage> {
     }
   }
 
+  Future<bool> _returnToMerchant({
+    required String status,
+    required String? reference,
+    required int transactionId,
+  }) async {
+    final callbackUrl = widget.flowData['callbackUrl'] as String?;
+    if (callbackUrl == null || callbackUrl.isEmpty) return false;
+
+    Uri callbackUri;
+    try {
+      final baseUri = Uri.parse(callbackUrl);
+      callbackUri = baseUri.replace(queryParameters: {
+        ...baseUri.queryParameters,
+        'status': status,
+        if (reference != null && reference.isNotEmpty) 'reference': reference,
+        'transaction_id': transactionId.toString(),
+      });
+    } on FormatException {
+      return false;
+    }
+
+    try {
+      return launchUrl(callbackUri, mode: LaunchMode.externalApplication);
+    } catch (_) {
+      return false;
+    }
+  }
+
   void _handleOtpState(OtpState state) {
     if (state is OtpSent) {
       setState(() => _sendingOtp = false);
@@ -271,7 +309,7 @@ class _PinPageState extends State<PinPage> {
     return MultiBlocListener(
       listeners: [
         BlocListener<PaymentBloc, PaymentState>(
-          listener: (_, state) => _handlePaymentState(state),
+          listener: (_, state) => unawaited(_handlePaymentState(state)),
         ),
         BlocListener<OtpBloc, OtpState>(
           listener: (_, state) => _handleOtpState(state),

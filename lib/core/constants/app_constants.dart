@@ -1,10 +1,10 @@
 class AppConstants {
-  static const String appName = 'Dompet Kampus Global';
+  static const String appName = 'Dompet Jajan';
   static const String appVersion = '1.0.0';
 
   // API
   static const String baseUrl =
-      'http://127.0.0.1:8080'; // Android device via adb reverse to local backend
+      'http://192.168.100.6:8080'; // Android device via adb reverse to local backend
   static const String apiVersion = '/v1';
   static const int connectTimeout = 30;
   static const int receiveTimeout = 30;
