@@ -3,9 +3,17 @@
 | Info | Detail |
 | --- | --- |
 | Nama | Dwi Ilham Maulana |
+| NIM | 1123150008 |
 | Kelas | TISE23M |
 | Mata Kuliah | KB1154 - Aplikasi Mobile Lanjutan |
 | Tugas | UAS - Integrasi E-Commerce dengan E-Money menggunakan Deep Link |
+
+## Link Repo Terkait
+
+- BE e commerce: [dwiilhammaulana/MBL5_BackendGolang](https://github.com/dwiilhammaulana/MBL5_BackendGolang)
+- E commerce: [dwiilhammaulana/MBL6_pasar_malam](https://github.com/dwiilhammaulana/MBL6_pasar_malam)
+- BE e money: [dwiilhammaulana/be_e_money](https://github.com/dwiilhammaulana/be_e_money)
+- e money: [dwiilhammaulana/e_money](https://github.com/dwiilhammaulana/e_money)
 
 ## Deskripsi
 
