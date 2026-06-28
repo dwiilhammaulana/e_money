@@ -240,18 +240,18 @@ build/app/outputs/flutter-apk/
 
 | | | |
 | --- | --- | --- |
-| ![Splash atau halaman awal](image.png) | ![Dokumentasi WhatsApp](<WhatsApp Image 2026-06-28 at 14.12.58.jpeg>) | ![E-Money 1](image-1.png) |
-| ![E-Money 2](image-2.png) | ![E-Money 3](image-3.png) | ![E-Money 4](image-4.png) |
-| ![E-Money 5](image-5.png) | ![E-Money 6](image-6.png) | ![E-Money 7](image-7.png) |
-| ![E-Money 8](image-8.png) | | |
+| <img src="image.png" alt="Splash atau halaman awal" width="220"> | <img src="WhatsApp%20Image%202026-06-28%20at%2014.12.58.jpeg" alt="Dokumentasi WhatsApp" width="220"> | <img src="image-1.png" alt="E-Money 1" width="220"> |
+| <img src="image-2.png" alt="E-Money 2" width="220"> | <img src="image-3.png" alt="E-Money 3" width="220"> | <img src="image-4.png" alt="E-Money 4" width="220"> |
+| <img src="image-5.png" alt="E-Money 5" width="220"> | <img src="image-6.png" alt="E-Money 6" width="220"> | <img src="image-7.png" alt="E-Money 7" width="220"> |
+| <img src="image-8.png" alt="E-Money 8" width="220"> | | |
 
 ### Integrasi E-Commerce
 
 | | | |
 | --- | --- | --- |
-| ![E-Commerce 1](image-9.png) | ![E-Commerce 2](image-10.png) | ![E-Commerce 3](image-11.png) |
-| ![E-Commerce 4](image-13.png) | ![E-Commerce 5](image-12.png) | ![E-Commerce 6](image-14.png) |
-| ![E-Commerce 7](image-15.png) | | |
+| <img src="image-9.png" alt="E-Commerce 1" width="220"> | <img src="image-10.png" alt="E-Commerce 2" width="220"> | <img src="image-11.png" alt="E-Commerce 3" width="220"> |
+| <img src="image-13.png" alt="E-Commerce 4" width="220"> | <img src="image-12.png" alt="E-Commerce 5" width="220"> | <img src="image-14.png" alt="E-Commerce 6" width="220"> |
+| <img src="image-15.png" alt="E-Commerce 7" width="220"> | | |
 
 ## Checklist UAS
 
