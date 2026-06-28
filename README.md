@@ -254,9 +254,13 @@ build/app/outputs/flutter-apk/
 
 ## Video Presentasi
 
-<img src="ChatGPT%20Image%20Jun%2028%2C%202026%2C%2011_47_43%20AM.png" alt="Thumbnail video presentasi Dompet Jajan" width="360">
+<p align="center">
+  <img src="ChatGPT%20Image%20Jun%2028%2C%202026%2C%2011_47_43%20AM.png" alt="Thumbnail video presentasi Dompet Jajan" width="660">
+</p>
 
-[Tonton video presentasi](https://youtu.be/D5u48pCRPgg)
+<p align="center">
+  <a href="https://youtu.be/D5u48pCRPgg">Tonton video presentasi</a>
+</p>
 
 ## Checklist UAS
 
