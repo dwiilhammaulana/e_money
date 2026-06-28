@@ -238,26 +238,20 @@ build/app/outputs/flutter-apk/
 
 ### Aplikasi E-Money
 
-![Splash atau halaman awal](image.png)
-![Dokumentasi WhatsApp](<WhatsApp Image 2026-06-28 at 14.12.58.jpeg>)
-![E-Money 1](image-1.png)
-![E-Money 2](image-2.png)
-![E-Money 3](image-3.png)
-![E-Money 4](image-4.png)
-![E-Money 5](image-5.png)
-![E-Money 6](image-6.png)
-![E-Money 7](image-7.png)
-![E-Money 8](image-8.png)
+| | | |
+| --- | --- | --- |
+| ![Splash atau halaman awal](image.png) | ![Dokumentasi WhatsApp](<WhatsApp Image 2026-06-28 at 14.12.58.jpeg>) | ![E-Money 1](image-1.png) |
+| ![E-Money 2](image-2.png) | ![E-Money 3](image-3.png) | ![E-Money 4](image-4.png) |
+| ![E-Money 5](image-5.png) | ![E-Money 6](image-6.png) | ![E-Money 7](image-7.png) |
+| ![E-Money 8](image-8.png) | | |
 
 ### Integrasi E-Commerce
 
-![E-Commerce 1](image-9.png)
-![E-Commerce 2](image-10.png)
-![E-Commerce 3](image-11.png)
-![E-Commerce 4](image-13.png)
-![E-Commerce 5](image-12.png)
-![E-Commerce 6](image-14.png)
-![E-Commerce 7](image-15.png)
+| | | |
+| --- | --- | --- |
+| ![E-Commerce 1](image-9.png) | ![E-Commerce 2](image-10.png) | ![E-Commerce 3](image-11.png) |
+| ![E-Commerce 4](image-13.png) | ![E-Commerce 5](image-12.png) | ![E-Commerce 6](image-14.png) |
+| ![E-Commerce 7](image-15.png) | | |
 
 ## Checklist UAS
 
